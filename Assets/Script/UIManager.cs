@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
+    
+    static int playerCount = 0;
 
     SoundManager soundManager;
 
@@ -117,9 +119,9 @@ public class UIManager : MonoBehaviour {
                     gauge[i].ChangeWidth();
 
                     if (i == 0)
-                        gauge[i].obj.transform.position = new Vector2(0, 1000f);
+                        gauge[i].obj.transform.position = new Vector2(0, 1050f);
                     else
-                        gauge[i].obj.transform.position = new Vector2(gauge[i - 1].obj.transform.position.x + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width, 1000f);
+                        gauge[i].obj.transform.position = new Vector2(gauge[i - 1].obj.transform.position.x + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width, 1050f);
                 }
             }
             else
@@ -222,9 +224,18 @@ public class UIManager : MonoBehaviour {
         Application.Quit();
     }
 
-    public void GameStart()
+    public void GameStart(int playerCount)
     {
-        SceneManager.LoadScene("GameScene");
+        soundManager.PlaySound(4);
+
+        if (menu == 1)
+        {
+            UIManager.playerCount = playerCount;
+
+            SceneManager.LoadScene("GameScene");
+        }
+
+        //SceneManager.LoadScene("GameScene");
     }
 
     IEnumerator Timer()
