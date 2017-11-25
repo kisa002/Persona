@@ -29,7 +29,7 @@ public class ChangePlayerColor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision");
+        //Debug.Log("Collision");
         if(other.CompareTag("PaintBucketThrowed"))
         {
             bp.brushColor = other.GetComponent<PaintBucketThrowedBehaviour>().color;

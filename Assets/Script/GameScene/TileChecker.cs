@@ -39,8 +39,8 @@ public static class TileChecker
 
     public static void PrintInfo()
     {
-        Debug.Log("Info - total: " + totalCount + "\n" +
-                  "       tileCnt: " + "[ " + tileCount[0] + ", " + tileCount[1] + ", " + tileCount[2] + ", " + tileCount[3] + ", " + tileCount[4] + "]");
-        Debug.Log("       tilePercent: " + "[ " + tilePercent[0] + ", " + tilePercent[1] + ", " + tilePercent[2] + ", " + tilePercent[3] + ", " + tilePercent[4] + "]");
+        //Debug.Log("Info - total: " + totalCount + "\n" +
+        //          "       tileCnt: " + "[ " + tileCount[0] + ", " + tileCount[1] + ", " + tileCount[2] + ", " + tileCount[3] + ", " + tileCount[4] + "]");
+        //Debug.Log("       tilePercent: " + "[ " + tilePercent[0] + ", " + tilePercent[1] + ", " + tilePercent[2] + ", " + tilePercent[3] + ", " + tilePercent[4] + "]");
     }
 }

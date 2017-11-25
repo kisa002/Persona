@@ -112,6 +112,7 @@ public class UIManager : MonoBehaviour {
 
                 for (int i = 0; i < 4; i++)
                 {
+                    value[i] = TileChecker.tileCount[i+1];
                     gauge[i].value = value[i];
                     gauge[i].ChangeWidth();
 
@@ -249,7 +250,7 @@ public class UIManager : MonoBehaviour {
 
     void CheckGauge()
     {
-        gaugeAll = gauge[0].value + gauge[1].value + gauge[2].value + gauge[3].value;
+        gaugeAll = TileChecker.tileCount[1] + TileChecker.tileCount[2] + TileChecker.tileCount[3] + TileChecker.tileCount[4];
     }
 
     public void Restart()
