@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour {
     GameObject panelResult;
     GameObject[] resultPlayer = new GameObject[4];
 
+    public int[] rank = new int[4];
+
     void Start ()
     {
         if (SceneManager.GetActiveScene().name == "Main")
@@ -46,7 +48,10 @@ public class UIManager : MonoBehaviour {
             panelResult = GameObject.Find("PanelResult");
 
             for (int i = 0; i < 4; i++)
+            {
                 resultPlayer[i] = panelResult.transform.FindChild("Player" + (i + 1)).gameObject;
+                resultPlayer[i].transform.SetParent(GameObject.Find("Result").transform.FindChild("Hide"));
+            }
 
             panelResult.active = false;
         }
@@ -75,6 +80,38 @@ public class UIManager : MonoBehaviour {
                 if(!panelResult.active)
                 {
                     panelResult.active = true;
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        rank[i] = 0;
+
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (gauge[i].percent < gauge[j].percent)
+                                rank[i]++;
+                        }
+                    }
+
+                    int count = 0;
+
+                    for(int i=0; i<4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (rank[j] == count)
+                            {
+                                resultPlayer[j].transform.SetParent(panelResult.transform);
+                                resultPlayer[j].transform.FindChild("Rank").transform.FindChild("Text").GetComponent<Text>().text = (count + 1).ToString();
+
+                                break;
+                            }
+                        }
+
+                        if (count == 3)
+                            break;
+
+                        count++;
+                    }
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -114,6 +151,16 @@ public class UIManager : MonoBehaviour {
     void CheckGauge()
     {
         gaugeAll = gauge[0].value + gauge[1].value + gauge[2].value + gauge[3].value;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Title()
+    {
+        SceneManager.LoadScene("Main");
     }
 
     class Gauge
