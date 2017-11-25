@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour {
 
     //Result
     public bool isFinish = false;
-    
+
+    GameObject result;
     GameObject panelResult;
     GameObject[] resultPlayer = new GameObject[4];
 
@@ -45,6 +46,7 @@ public class UIManager : MonoBehaviour {
                 gauge[i].textPercent = gauge[i].obj.transform.FindChild("TextPercent").GetComponent<Text>();
             }
 
+            result = GameObject.Find("Result");
             panelResult = GameObject.Find("PanelResult");
 
             for (int i = 0; i < 4; i++)
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour {
             }
 
             panelResult.active = false;
+            result.active = false;
         }
 	}
 	
@@ -79,6 +82,7 @@ public class UIManager : MonoBehaviour {
             {
                 if(!panelResult.active)
                 {
+                    result.active = true;
                     panelResult.active = true;
 
                     for (int i = 0; i < 4; i++)
@@ -138,12 +142,13 @@ public class UIManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         timer -= 1;
 
-        textTimer.text = timer.ToString();
+        if (timer >= 10)
+            textTimer.text = (timer.ToString()).Substring(0, 1) + " " + (timer.ToString()).Substring(1, 1);
+        else
+            textTimer.text = timer.ToString();
 
-        if(timer <= 0)
-        {
-            //TO DO ACTION
-        }
+        if (timer <= 0)
+            isFinish = true;
         else
             StartCoroutine(Timer());
     }
