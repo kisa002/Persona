@@ -14,7 +14,7 @@ public class PaintBucketThrowedBehaviour : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().material.color = PlayerColorManager.GetColor(color);
 
-        StartCoroutine(Throw());
+        //StartCoroutine(Throw());
     }
 
 	void Update ()

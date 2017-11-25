@@ -16,6 +16,12 @@ ModelImporter:
     100016: RightArm
     100018: RightFoot
     100020: RightLeg
+    100022: Bucket
+    100024: LeftForearm
+    100026: LeftUpperarm
+    100028: Object001
+    100030: RightForearm
+    100032: RightUpperarm
     400000: Body
     400002: //RootNode
     400004: Head
@@ -27,6 +33,12 @@ ModelImporter:
     400016: RightArm
     400018: RightFoot
     400020: RightLeg
+    400022: Bucket
+    400024: LeftForearm
+    400026: LeftUpperarm
+    400028: Object001
+    400030: RightForearm
+    400032: RightUpperarm
     2300000: Body
     2300002: Head
     2300004: LeftArm
@@ -37,6 +49,12 @@ ModelImporter:
     2300014: RightArm
     2300016: RightFoot
     2300018: RightLeg
+    2300020: Bucket
+    2300022: LeftForearm
+    2300024: LeftUpperarm
+    2300026: Object001
+    2300028: RightForearm
+    2300030: RightUpperarm
     3300000: Body
     3300002: Head
     3300004: LeftArm
@@ -47,6 +65,12 @@ ModelImporter:
     3300014: RightArm
     3300016: RightFoot
     3300018: RightLeg
+    3300020: Bucket
+    3300022: LeftForearm
+    3300024: LeftUpperarm
+    3300026: Object001
+    3300028: RightForearm
+    3300030: RightUpperarm
     4300000: Body
     4300002: Head
     4300004: LeftArm
@@ -57,14 +81,30 @@ ModelImporter:
     4300014: LeftFoot
     4300016: RightLeg
     4300018: RightFoot
+    4300020: LeftUpperarm
+    4300022: LeftForearm
+    4300024: Bucket
+    4300026: RightUpperarm
+    4300028: RightForearm
+    4300030: Object001
     7400000: Take 001
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BucketColor
+    second: {fileID: 2100000, guid: 5ce4a8fc2268f4645b4c2be5ec848c54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CharacterColor
+    second: {fileID: 2100000, guid: 385b599845162fe4dbbe6e2446607a31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: palette
-    second: {fileID: 2100000, guid: b6ab74e56a22928458a94669c245992b, type: 2}
+    second: {fileID: 2100000, guid: e2bbffbd0c5bb254fb485787bf8796d2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

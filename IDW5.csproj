@@ -240,6 +240,7 @@
     <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\Script\GameScene\BasePlayer.cs" />
     <Compile Include="Assets\Script\GameScene\BasePlayerControl.cs" />
+    <Compile Include="Assets\Script\GameScene\TitleMap\TitleInfo.cs" />
     <Compile Include="Assets\Script\GameScene\TitleMapGenerator.cs" />
     <Compile Include="Assets\Script\ItemSpawnManager.cs" />
     <Compile Include="Assets\Script\NetworkManager.cs" />

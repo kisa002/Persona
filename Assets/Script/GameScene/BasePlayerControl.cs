@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BasePlayerControl : MonoBehaviour {
 
-    public List<Vector2> dir;
-    public List<float> rot;
+    public Vector3 dir = Vector3.zero;
 
     // Use this for initialization
     void Start () {
@@ -17,17 +16,8 @@ public class BasePlayerControl : MonoBehaviour {
 		
 	}
 
-    public void SetRot(float h, float v)
+    public void SetRot()
     {
-        Vector2 p = new Vector2(h, v);
-        
-        //for(int i = 0; i < 8; i++)
-        //{
-        //    if(dir[i].Equals(p))
-        //    {
-        //        GetComponent<Transform>().rotation = new Quaternion(0.0f, rot[i], 0.0f, 0.0f);
-        //        break;
-        //    }
-        //}
+
     }
 }
