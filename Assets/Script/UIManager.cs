@@ -13,8 +13,19 @@ public class UIManager : MonoBehaviour {
     public float[] value = new float[4];
     static public float gaugeAll = 0;
 
+    public Text[] textStart = new Text[3];
+    public Image[] imageStart = new Image[3];
+
     void Start ()
     {
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                textStart[i] = GameObject.Find("Start" + (i + 2)).transform.FindChild("Text").GetComponent<Text>();
+                imageStart[i] = GameObject.Find("Start" + (i + 2)).GetComponent<Image>();
+            }
+        }
         if (SceneManager.GetActiveScene().name == "Game")
         {
             textTimer = GameObject.Find("TextTimer").GetComponent<Text>();
@@ -30,22 +41,25 @@ public class UIManager : MonoBehaviour {
 	}
 	
 	void Update () {
-        CheckGauge();
-
-		for(int i=0; i<4; i++)
+        if (SceneManager.GetActiveScene().name == "Game")
         {
-            gauge[i].value = value[i];
-            gauge[i].ChangeWidth();
+            CheckGauge();
 
-            if (i == 0)
+            for (int i = 0; i < 4; i++)
             {
-                gauge[i].obj.transform.position = new Vector2(0, 1000f);
-                //Debug.Log("Gauge" + i + " - (POS)" + gauge[i].obj.transform.position + " / (WIDTH)" + gauge[i].obj.GetComponent<RectTransform>().rect.width);
-            }
-            else
-            {
-                gauge[i].obj.transform.position = new Vector2(gauge[i - 1].obj.transform.position.x + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width, 1000f);
-                Debug.Log("Gauge" + (i - 1) + " - (POS)" + gauge[i - 1].obj.transform.position + " / (WIDTH)" + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width);
+                gauge[i].value = value[i];
+                gauge[i].ChangeWidth();
+
+                if (i == 0)
+                {
+                    gauge[i].obj.transform.position = new Vector2(0, 1000f);
+                    //Debug.Log("Gauge" + i + " - (POS)" + gauge[i].obj.transform.position + " / (WIDTH)" + gauge[i].obj.GetComponent<RectTransform>().rect.width);
+                }
+                else
+                {
+                    gauge[i].obj.transform.position = new Vector2(gauge[i - 1].obj.transform.position.x + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width, 1000f);
+                    Debug.Log("Gauge" + (i - 1) + " - (POS)" + gauge[i - 1].obj.transform.position + " / (WIDTH)" + gauge[i - 1].obj.GetComponent<RectTransform>().rect.width);
+                }
             }
         }
     }
@@ -93,5 +107,11 @@ public class UIManager : MonoBehaviour {
                 //Debug.Log(obj.name + " : " + value + " / " + gaugeAll + " =  " + percent + "%");
             }
         }
+    }
+
+    public void OnPlayButton()
+    {
+        Debug.Log(this.gameObject.name);
+        
     }
 }
