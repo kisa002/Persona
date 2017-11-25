@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114762967161090834}
   m_Layer: 0
   m_Name: StageArea
-  m_TagString: Untagged
+  m_TagString: StageArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,6 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a4a8fbddca3b244a6486252199b9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 2.5
+  spawnTime: 3
   spawnArea: {fileID: 65338052978207240}
   item: {fileID: 1360931775693048, guid: 8c58b52cd80fd984cac9f54064b30139, type: 2}

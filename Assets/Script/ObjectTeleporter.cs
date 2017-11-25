@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectTeleporter : MonoBehaviour
 {
     public BoxCollider area;
-    public float margin = 20f;
+    public float margin = 60f;
 
     private float minX;
     private float maxX;

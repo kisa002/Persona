@@ -15,11 +15,9 @@ public class TitleInfo : MonoBehaviour {
 
     public TileType tileType;
 
-    private TitleMapGenerator generator;
     private Material tileMat;
     // Use this for initialization
     void Start () {
-        generator = GameObject.Find("TitleMapManager").GetComponent<TitleMapGenerator>();
         tileMat = GetComponent<MeshRenderer>().materials[0];
     }
 	
@@ -28,27 +26,23 @@ public class TitleInfo : MonoBehaviour {
 		
 	}
 
-    public TitleInfo() { }
-    public TitleInfo(TileType type)
-    {
-        tileType = TileType.eTileBase;
-    }
-
-    public void SetTitle(TileType type)
+    public void SetTile(TileType type)
     {
         tileType = type;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Bursh")
+        if (other.gameObject.CompareTag("Bursh"))
         {
             BasePlayer player = other.gameObject.GetComponentInParent<BasePlayer>();
-            tileMat.color = player.brushColor;
+            tileMat.color = PlayerColorManager.GetColor(player.brushColor);
 
-            tileType = PlayerColorManager.GetTileType(tileMat.color);
-            
-            generator.ChangeTileData(this, transform.position);
+            TileType newType = PlayerColorManager.GetTileType(tileMat.color);
+
+            TileChecker.ChangeOneTile(tileType, newType);
+            tileType = newType;
+            TileChecker.RefreshPercent();
         }
     }
 }

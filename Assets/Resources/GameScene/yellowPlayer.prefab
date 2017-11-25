@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 136571337200186924}
   - component: {fileID: 54421046716398978}
   - component: {fileID: 114733636569969086}
+  - component: {fileID: 114154021072212700}
   m_Layer: 0
   m_Name: yellowPlayer
   m_TagString: Untagged
@@ -359,7 +360,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179820310083748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 55, y: 0, z: 54}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4971418330825704}
@@ -1012,6 +1013,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114154021072212700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1179820310083748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f642f7326ce948a4cb84b99869351cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  area: {fileID: 0}
+  margin: 60
 --- !u!114 &114299886366818028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1023,9 +1037,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c16cacbbdeb094b9c811901b44b935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bucket: {fileID: 1867557417925014}
+  bucketThrowed: {fileID: 1498387226615554, guid: e27ce56b5a82a254aa2fd9104f68c79c,
+    type: 2}
   originalColor: 3
-  bucketColor: {r: 0, g: 0, b: 0, a: 0}
-  brushColor: {r: 0, g: 0, b: 0, a: 0}
+  bucketColor: 0
+  brushColor: 0
   playerIndex: 0
   PlayerMovePowerBase: 12
   PlayerDashPower: 32

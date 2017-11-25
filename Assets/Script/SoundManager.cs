@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour {
                 BgmTitle();
                 break;
 
-            case "Game":
+            case "GameScene":
                 BgmIngame();
                 break;
         }

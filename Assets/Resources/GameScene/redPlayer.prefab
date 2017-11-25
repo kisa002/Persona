@@ -1023,9 +1023,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c16cacbbdeb094b9c811901b44b935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bucket: {fileID: 1302414018737500}
+  bucketThrowed: {fileID: 1183823783605410, guid: e27ce56b5a82a254aa2fd9104f68c79c,
+    type: 2}
   originalColor: 0
-  bucketColor: {r: 0, g: 0, b: 0, a: 0}
-  brushColor: {r: 0, g: 0, b: 0, a: 0}
+  bucketColor: 0
+  brushColor: 0
   playerIndex: 0
   PlayerMovePowerBase: 12
   PlayerDashPower: 32

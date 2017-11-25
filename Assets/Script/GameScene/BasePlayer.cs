@@ -36,9 +36,11 @@ public class BasePlayer : MonoBehaviour
         }
     }
 
+    public GameObject bucket;
+    public GameObject bucketThrowed;
     public PlayerColor originalColor;
-    public Color bucketColor;
-    public Color brushColor;
+    public PlayerColor bucketColor;
+    public PlayerColor brushColor;
     public PlayerIndex playerIndex;
     public float PlayerMovePowerBase = 3f;
     public float PlayerDashPower = 8f;
@@ -62,8 +64,8 @@ public class BasePlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider>();
         PlayerMovePower = PlayerMovePowerBase;
-        bucketColor = PlayerColorManager.GetColor(originalColor);
-        brushColor = PlayerColorManager.GetColor(originalColor);
+        bucketColor = originalColor;
+        brushColor = originalColor;
     }
 	
 	// Update is called once per frame
@@ -91,9 +93,10 @@ public class BasePlayer : MonoBehaviour
 
     public void StateUpdate()
     {
-        if (throwButtonUp)
+        if (throwButtonUp && bucket.activeSelf)
         {
             anim.SetTrigger("Throw");
+            StartThrow();
         }
         else if (paintButtonUp)
         {
@@ -134,6 +137,21 @@ public class BasePlayer : MonoBehaviour
         coll.enabled = true;
         canMove = true;
         PlayerMovePower = PlayerMovePowerBase;
+    }
+
+    public void StartThrow()
+    {
+        Vector3 direction = transform.TransformDirection(Vector3.back);
+        Vector3 position = transform.position + direction * 100;
+        position.y += 50;
+        Quaternion rotation = transform.rotation;
+        GameObject o = Instantiate(bucketThrowed, position, rotation);
+        PaintBucketThrowedBehaviour b = o.GetComponent<PaintBucketThrowedBehaviour>();
+
+        b.color = bucketColor;
+        b.direction = direction;
+        StartCoroutine(b.Throw());
+        bucket.SetActive(false);
     }
 
     private void GeneratorPlayer()

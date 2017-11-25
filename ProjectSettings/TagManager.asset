@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: [Bursh, PaintBucket, Button]
+  tags:
+  - Bursh
+  - PaintBucket
+  - Button
+  - PaintBucketThrowed
+  - StageArea
   layers:
   - Default
   - TransparentFX

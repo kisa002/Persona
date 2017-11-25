@@ -112,24 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &668902893 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1179820310083748, guid: 8a20e480925522d48b0ee877ff1e3436,
-    type: 2}
-  m_PrefabInternal: {fileID: 1670311743}
---- !u!114 &668902900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 668902893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f642f7326ce948a4cb84b99869351cf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  area: {fileID: 2107573949}
-  margin: 60
 --- !u!1 &990101525
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +268,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 1
   orthographic size: 540
@@ -398,6 +380,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114154021072212700, guid: 8a20e480925522d48b0ee877ff1e3436,
+        type: 2}
+      propertyPath: area
+      value: 
+      objectReference: {fileID: 2107573949}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a20e480925522d48b0ee877ff1e3436, type: 2}
   m_IsPrefabParent: 0

@@ -64,10 +64,9 @@ public class UIManager : MonoBehaviour {
 
             StartCoroutine(ShakeLogo());
         }
-        if (SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "GameScene")
         {
             textTimer = GameObject.Find("TextTimer").GetComponent<Text>();
-            //StartCoroutine(Timer());
 
             imageCountdown = GameObject.Find("ImageCountdown").GetComponent<Image>();
             StartCoroutine(Countdown());
@@ -76,7 +75,6 @@ public class UIManager : MonoBehaviour {
             imageTimerOver.enabled = false;
 
             GameObject resultAlpha = GameObject.Find("BackgroundAlpha");
-            //resultAlpha.active = false;
 
             imageCountdown = GameObject.Find("ImageCountdown").GetComponent<Image>();
 
@@ -106,7 +104,7 @@ public class UIManager : MonoBehaviour {
 	
 	void Update ()
     {
-        if (SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "GameScene")
         {
             if(!isFinish)
             {
@@ -225,7 +223,7 @@ public class UIManager : MonoBehaviour {
 
     public void GameStart()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("GameScene");
     }
 
     IEnumerator Timer()

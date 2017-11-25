@@ -32,8 +32,8 @@ public class ChangePlayerColor : MonoBehaviour
         Debug.Log("Collision");
         if(other.CompareTag("PaintBucketThrowed"))
         {
-            brushMat.color = PlayerColorManager.GetColor(other.GetComponent<PaintBucketThrowedBehaviour>().color);
-            bp.brushColor = brushMat.color;
+            bp.brushColor = other.GetComponent<PaintBucketThrowedBehaviour>().color;
+            brushMat.color  = PlayerColorManager.GetColor(bp.brushColor);
             Destroy(other.gameObject);
         }
         else if(other.CompareTag("PaintBucket"))
@@ -41,13 +41,14 @@ public class ChangePlayerColor : MonoBehaviour
             if(bucket.activeSelf == false)
             {
                 bucket.SetActive(true);
-            }
-            bucketMat.color = PlayerColorManager.GetColor(other.GetComponent<PaintBucketBehaviour>().color);
-            bp.bucketColor = bucketMat.color;
-            if(bucketMat.color == PlayerColorManager.GetColor(bp.originalColor))
+            }            
+            bp.bucketColor = other.GetComponent<PaintBucketBehaviour>().color;
+            bucketMat.color = PlayerColorManager.GetColor(bp.bucketColor);
+
+            if(bp.bucketColor == bp.originalColor)
             {
                 brushMat.color = bucketMat.color;
-                bp.brushColor = brushMat.color;
+                bp.brushColor = bp.bucketColor;
             }
             Destroy(other.gameObject);
         }

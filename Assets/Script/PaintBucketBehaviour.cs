@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaintBucketBehaviour : MonoBehaviour
 {
     public PlayerColor color;
+    public ItemSpawnManager manager;
 
 	void Start ()
     {
@@ -15,6 +16,11 @@ public class PaintBucketBehaviour : MonoBehaviour
     {
 		
 	}
+
+    void OnDestroy()
+    {
+        manager.currentSpawn -= 1;
+    }
 
     public void SetColor(PlayerColor c)
     {
