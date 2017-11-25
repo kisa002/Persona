@@ -4,18 +4,7 @@ using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
 {
-    public List<Vector2> dir = new List<Vector2> {
-        new Vector2(-1,0), new Vector2(1,0), new Vector2(0,1), new Vector2(0,-1),
-        new Vector2(-1,1), new Vector2(1, 1), new Vector2(-1,-1), new Vector2(1,-1)
-    };
-
-    public List<float> rot = new List<float>
-    {
-        90.0f, 270.0f,180.0f,0.0f,
-        135.0f, 225.0f, 45.0f, 315.0f
-    };
-
-    public enum PlayerIndex { One, Two, Three, Four};
+    public enum PlayerIndex { Unknown = -1,One, Two, Three, Four};
     public enum PlayerState { eIdle, eWalk, eDash, eDie};
 
     public PlayerState playerState {
@@ -35,8 +24,8 @@ public class BasePlayer : MonoBehaviour
                 canMove = false;
                 coll.enabled = false;
                 PlayerMovePower = PlayerDashPower;
-                x = transform.TransformDirection(Vector3.left).x;
-                z = transform.TransformDirection(Vector3.left).z;
+                x = transform.TransformDirection(Vector3.back).x;
+                z = transform.TransformDirection(Vector3.back).z;
             }
 
             if(value == PlayerState.eDie) {
@@ -45,8 +34,11 @@ public class BasePlayer : MonoBehaviour
 
             _playerState = value;
         }
-    } 
+    }
 
+    public PlayerColor originalColor;
+    public Color bucketColor;
+    public Color brushColor;
     public PlayerIndex playerIndex;
     public float PlayerMovePowerBase = 3f;
     public float PlayerDashPower = 8f;
@@ -62,7 +54,6 @@ public class BasePlayer : MonoBehaviour
     private bool paintButtonUp = false;
 
     private bool canMove = true;
-    public Vector3 playerLook { get; private set; }
 
 	// Use this for initialization
 	void Start ()
@@ -71,7 +62,8 @@ public class BasePlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider>();
         PlayerMovePower = PlayerMovePowerBase;
-        playerLook = Vector2.zero;
+        bucketColor = PlayerColorManager.GetColor(originalColor);
+        brushColor = PlayerColorManager.GetColor(originalColor);
     }
 	
 	// Update is called once per frame
@@ -107,7 +99,7 @@ public class BasePlayer : MonoBehaviour
         {
             anim.SetTrigger("Paint");
         }
-
+       
         if (dashButtonDown)
         {
             playerState = PlayerState.eDash;
@@ -131,8 +123,7 @@ public class BasePlayer : MonoBehaviour
         if (playerState != PlayerState.eIdle)
         {
             transform.LookAt(transform.position + pos.normalized * PlayerMovePower);
-            transform.Rotate(new Vector3(0, 90f, 0f));
-            PlayerLookCheck();
+            transform.Rotate(new Vector3(0, 180f, 0f));
         }
         transform.position += pos.normalized * PlayerMovePower;
     }
@@ -163,9 +154,11 @@ public class BasePlayer : MonoBehaviour
         //control = GetComponent<BasePlayerControl>();
     }
 
-    private void PlayerLookCheck()
+    public void BrushIndex(int index)
     {
-        playerLook = transform.TransformDirection(Vector3.left);
-        Debug.Log(playerLook);
+        if(index != 0)
+            GetComponentInChildren<Brush>().Off(index-1);
+
+        GetComponentInChildren<Brush>().On(index);
     }
 }

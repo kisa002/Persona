@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class TitleInfo : MonoBehaviour {
 
-    public enum TitleType
+    public enum TileType
     {
-        eTitleBase,
-        eTitleRed,
-        eTitleGreen,
-        eTitleBule,
-        eTitleYellow
+        eTileBase,
+        eTileRed,
+        eTileGreen,
+        eTileBlue,
+        eTileYellow
     }
 
-    public TitleType titleType;
-    public int playerIndex;
+    public TileType tileType;
 
+    private TitleMapGenerator generator;
+    private Material tileMat;
     // Use this for initialization
     void Start () {
-		
-	}
+        generator = GameObject.Find("TitleMapManager").GetComponent<TitleMapGenerator>();
+        tileMat = GetComponent<MeshRenderer>().materials[0];
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,23 +29,26 @@ public class TitleInfo : MonoBehaviour {
 	}
 
     public TitleInfo() { }
-    public TitleInfo(TitleType type, int playerIndex)
+    public TitleInfo(TileType type)
     {
-        titleType = TitleType.eTitleBase;
-        this.playerIndex = playerIndex;
+        tileType = TileType.eTileBase;
     }
 
-    public void SetTitle(int PlayerIndex, TitleType type)
+    public void SetTitle(TileType type)
     {
-        playerIndex = PlayerIndex;
-        titleType = type;
+        tileType = type;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.name == "b")
+        if (other.gameObject.tag == "Bursh")
         {
-            GameObject.Find("TitleMapManager").GetComponent<TitleMapGenerator>().DrawColorPlayer(collision.gameObject.GetComponentInParent<BasePlayer>());
+            BasePlayer player = other.gameObject.GetComponentInParent<BasePlayer>();
+            tileMat.color = player.brushColor;
+
+            tileType = PlayerColorManager.GetTileType(tileMat.color);
+            
+            generator.ChangeTileData(this, transform.position);
         }
     }
 }

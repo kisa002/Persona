@@ -57,7 +57,7 @@ ModelImporter:
     4300014: RightUpperarm
     4300016: RightForearm
     4300018: Object001
-    7400000: Take 001
+    7400000: Run
     9500000: //RootNode
   externalObjects:
   - first:
@@ -102,7 +102,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Run
       takeName: Take 001
       firstFrame: 0
       lastFrame: 20

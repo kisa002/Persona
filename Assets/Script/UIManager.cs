@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
 
+    SoundManager soundManager;
+
     //Main
     public int menu = 0;
 
@@ -47,6 +49,8 @@ public class UIManager : MonoBehaviour {
 
     void Start ()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
         if (SceneManager.GetActiveScene().name == "Main")
         {
             main = GameObject.Find("Main");
@@ -121,11 +125,12 @@ public class UIManager : MonoBehaviour {
             }
             else
             {
-                if(!panelResult.active)
+                if (!panelResult.active)
                 {
+                    soundManager.BgmResult();
+
                     result.active = true;
                     panelResult.active = true;
-                    //resultAlpha.active = true;
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -175,18 +180,6 @@ public class UIManager : MonoBehaviour {
 
         if(SceneManager.GetActiveScene().name == "Main")
         {
-            //if (credit.active)
-            //{
-            //    textCredit.transform.Translate(Vector2.up * 200f * Time.deltaTime);
-
-            //    if (textCredit.transform.position.y >= 1300)
-            //    {
-            //        textCredit.transform.position = new Vector2(textCredit.transform.position.x, -20f);
-
-            //        ShowMain();
-            //    }
-            //}
-
             if (Input.GetKeyDown(KeyCode.Escape))
                 ShowMain();
         }
@@ -194,6 +187,9 @@ public class UIManager : MonoBehaviour {
 
     public void ShowMain()
     {
+        soundManager.BgmTitle();
+        soundManager.PlaySound(4);
+
         select.active = false;
         credit.active = false;
 
@@ -203,6 +199,7 @@ public class UIManager : MonoBehaviour {
     public void ShowSelect()
     {
         StartCoroutine(ChangeMenu(1));
+        soundManager.PlaySound(4);
 
         main.active = false;
         credit.active = false;
@@ -213,6 +210,9 @@ public class UIManager : MonoBehaviour {
     public void ShowCredit()
     {
         credit.active = true;
+        soundManager.PlaySound(4);
+
+        soundManager.BgmCredit();
 
         main.active = false;
         select.active = false;
@@ -239,7 +239,12 @@ public class UIManager : MonoBehaviour {
             textTimer.text = timer.ToString();
 
         if (timer <= 0)
+        {
+            soundManager.source[1].Stop();
+            soundManager.PlaySound(9);
+
             StartCoroutine(TimeOver());
+        }
         else
             StartCoroutine(Timer());
     }

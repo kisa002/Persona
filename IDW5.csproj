@@ -238,8 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Script\ChangePlayerColor.cs" />
     <Compile Include="Assets\Script\GameScene\BasePlayer.cs" />
-    <Compile Include="Assets\Script\GameScene\BasePlayerControl.cs" />
+    <Compile Include="Assets\Script\GameScene\Brush.cs" />
     <Compile Include="Assets\Script\GameScene\TitleMap\TitleInfo.cs" />
     <Compile Include="Assets\Script\GameScene\TitleMapGenerator.cs" />
     <Compile Include="Assets\Script\ItemSpawnManager.cs" />
@@ -248,8 +249,10 @@
     <Compile Include="Assets\Script\PaintBucketBehaviour.cs" />
     <Compile Include="Assets\Script\PaintBucketThrowedBehaviour.cs" />
     <Compile Include="Assets\Script\PlayerColor.cs" />
+    <Compile Include="Assets\Script\SoundManager.cs" />
     <Compile Include="Assets\Script\StartButton.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
+    <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Dll\MySQL.Data.EntityFrameworkCore.xml" />

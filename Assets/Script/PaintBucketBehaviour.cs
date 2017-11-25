@@ -19,6 +19,6 @@ public class PaintBucketBehaviour : MonoBehaviour
     public void SetColor(PlayerColor c)
     {
         color = c;
-        gameObject.GetComponent<Renderer>().material.color = PlayerColorManager.GetColor(color);
+        gameObject.GetComponent<Renderer>().materials[1].color = PlayerColorManager.GetColor(color);
     }
 }

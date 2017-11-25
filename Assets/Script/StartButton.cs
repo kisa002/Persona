@@ -26,5 +26,7 @@ public class StartButton : MonoBehaviour, IPointerEnterHandler, IPointerDownHand
     {
         if(GameObject.Find("UIManager").GetComponent<UIManager>().menu == 1)
             SceneManager.LoadScene("Game");
+
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(4);
     }
 }

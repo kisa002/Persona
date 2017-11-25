@@ -24,4 +24,32 @@ public static class PlayerColorManager
         }
         return result;
     }
+
+    public static TitleInfo.TileType GetTileType(PlayerColor color)
+    {
+        return GetTileType(GetColor(color));
+    }
+    public static TitleInfo.TileType GetTileType(Color color)
+    {
+        if(color.Equals(Color.red))
+        {
+            return TitleInfo.TileType.eTileRed;
+        }
+        else if (color.Equals(Color.green))
+        {
+            return TitleInfo.TileType.eTileGreen;
+        }
+        else if (color.Equals(Color.blue))
+        {
+            return TitleInfo.TileType.eTileBlue;
+        }
+        else if (color.Equals(Color.yellow))
+        {
+            return TitleInfo.TileType.eTileYellow;
+        }
+        else
+        {
+            return TitleInfo.TileType.eTileBase;
+        }
+    }
 }

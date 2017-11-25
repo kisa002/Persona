@@ -12,15 +12,20 @@ public class PaintBucketThrowedBehaviour : MonoBehaviour
 
     void Start ()
     {
-        gameObject.GetComponent<Renderer>().material.color = PlayerColorManager.GetColor(color);
+        gameObject.GetComponent<Renderer>().materials[1].color = PlayerColorManager.GetColor(color);
 
-        //StartCoroutine(Throw());
+        StartCoroutine(Throw());
     }
 
 	void Update ()
     {
 		
-	}                       
+	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("player collided");
+    }
 
     public IEnumerator Throw()  //이 코루틴을 시작하기 전에 direction을 반드시 지정해 주세요
     {

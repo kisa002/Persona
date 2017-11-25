@@ -19,9 +19,6 @@ public class ItemSpawnManager : MonoBehaviour
 
         upperLeftCorner.y = bottomRightCorner.y;
 
-        Instantiate(item, upperLeftCorner, new Quaternion());
-        Instantiate(item, bottomRightCorner, new Quaternion());
-
         StartCoroutine(SpawnItemRandomly());
     }
 
@@ -37,6 +34,7 @@ public class ItemSpawnManager : MonoBehaviour
             int x = random.Next((int)upperLeftCorner.x, (int)bottomRightCorner.x);
             int z = random.Next((int)upperLeftCorner.z, (int)bottomRightCorner.z);
             GameObject o = Instantiate(item, new Vector3(x, upperLeftCorner.y, z), new Quaternion());
+            o.transform.Rotate(-90f, 0f, 0f);
             PlayerColor c = (PlayerColor)random.Next(0, 4);
             Debug.Log(c);
             o.GetComponent<PaintBucketBehaviour>().SetColor(c);
