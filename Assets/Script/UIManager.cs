@@ -6,6 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
 
+    //Main
+    public int menu = 0;
+
+    GameObject main;
+    GameObject select;
+    GameObject credit;
+    GameObject textCredit;
+
+    GameObject logo;
+
+    int shakeDir = -1;
+    
     //Gauge
     Gauge[] gauge = new Gauge[4];
 
@@ -31,7 +43,16 @@ public class UIManager : MonoBehaviour {
     {
         if (SceneManager.GetActiveScene().name == "Main")
         {
+            main = GameObject.Find("Main");
+            select = GameObject.Find("Select");
+            credit = GameObject.Find("Credit");
 
+            logo = GameObject.Find("Logo");
+
+            select.active = false;
+            credit.active = false;
+
+            StartCoroutine(ShakeLogo());
         }
         if (SceneManager.GetActiveScene().name == "Game")
         {
@@ -60,7 +81,8 @@ public class UIManager : MonoBehaviour {
         }
 	}
 	
-	void Update () {
+	void Update ()
+    {
         if (SceneManager.GetActiveScene().name == "Game")
         {
             if(!isFinish)
@@ -124,12 +146,58 @@ public class UIManager : MonoBehaviour {
                         gauge[i].obj = resultPlayer[i].transform.FindChild("Gauge").gameObject;
                         gauge[i].ResultWidth();
                     }
-
-                    //GameObject.Find("ImageTimer").active = false;
-                    //GameObject.Find("TextTimer").active = false;
                 }
             }
         }
+
+        if(SceneManager.GetActiveScene().name == "Main")
+        {
+            //if (credit.active)
+            //{
+            //    textCredit.transform.Translate(Vector2.up * 200f * Time.deltaTime);
+
+            //    if (textCredit.transform.position.y >= 1300)
+            //    {
+            //        textCredit.transform.position = new Vector2(textCredit.transform.position.x, -20f);
+
+            //        ShowMain();
+            //    }
+            //}
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                ShowMain();
+        }
+    }
+
+    public void ShowMain()
+    {
+        select.active = false;
+        credit.active = false;
+
+        main.active = true;
+    }
+
+    public void ShowSelect()
+    {
+        StartCoroutine(ChangeMenu(1));
+
+        main.active = false;
+        credit.active = false;
+
+        select.active = true;
+    }
+
+    public void ShowCredit()
+    {
+        credit.active = true;
+
+        main.active = false;
+        select.active = false;
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
     }
 
     public void GameStart()
@@ -198,5 +266,33 @@ public class UIManager : MonoBehaviour {
                 obj.GetComponent<RectTransform>().sizeDelta = new Vector2((percent / 100f) * 1000f, obj.GetComponent<RectTransform>().rect.height);
             }
         }
+    }
+
+    IEnumerator ActiveShow(GameObject obj, bool check)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        obj.active = check;
+    }
+
+    IEnumerator ChangeMenu(int value)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        menu = value;
+    }
+
+    IEnumerator ShakeLogo()
+    {
+        shakeDir *= -1;
+
+        for (int i = 0; i < 60; i++)
+        {
+            //logo.transform.Rotate(0f, 0f, (0.15f * shakeDir));
+            logo.transform.localScale += new Vector3(0.002f * shakeDir, 0.002f * shakeDir, 0f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        StartCoroutine(ShakeLogo());
     }
 }

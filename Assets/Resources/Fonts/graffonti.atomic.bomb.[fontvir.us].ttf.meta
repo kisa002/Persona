@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: b6cccd2471860e84b99e6e8e41b8abae
+timeCreated: 1511609836
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: graffonti
+  fontNames:
+  - graffonti
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
