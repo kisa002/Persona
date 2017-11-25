@@ -26,8 +26,12 @@ public class UIManager : MonoBehaviour {
 
 
     //Timer
-    public int timer = 60;
+    public int timer = 61;
     Text textTimer;
+
+    int countdown = 3;
+    Image imageCountdown;
+    Image imageTimerOver;
 
 
     //Result
@@ -35,7 +39,9 @@ public class UIManager : MonoBehaviour {
 
     GameObject result;
     GameObject panelResult;
+    GameObject resultAlpha;
     GameObject[] resultPlayer = new GameObject[4];
+    Image imagePlayer;
 
     public int[] rank = new int[4];
 
@@ -57,7 +63,20 @@ public class UIManager : MonoBehaviour {
         if (SceneManager.GetActiveScene().name == "Game")
         {
             textTimer = GameObject.Find("TextTimer").GetComponent<Text>();
-            StartCoroutine(Timer());
+            //StartCoroutine(Timer());
+
+            imageCountdown = GameObject.Find("ImageCountdown").GetComponent<Image>();
+            StartCoroutine(Countdown());
+
+            imageTimerOver = GameObject.Find("ImageTimerOver").GetComponent<Image>();
+            imageTimerOver.enabled = false;
+
+            GameObject resultAlpha = GameObject.Find("BackgroundAlpha");
+            //resultAlpha.active = false;
+
+            imageCountdown = GameObject.Find("ImageCountdown").GetComponent<Image>();
+
+            imagePlayer = GameObject.Find("ImagePlayer").GetComponent<Image>();
 
             for (int i = 0; i < 4; i++)
             {
@@ -106,6 +125,7 @@ public class UIManager : MonoBehaviour {
                 {
                     result.active = true;
                     panelResult.active = true;
+                    //resultAlpha.active = true;
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -128,6 +148,9 @@ public class UIManager : MonoBehaviour {
                             {
                                 resultPlayer[j].transform.SetParent(panelResult.transform);
                                 resultPlayer[j].transform.FindChild("Rank").transform.FindChild("Text").GetComponent<Text>().text = (count + 1).ToString();
+
+                                if (count == 0)
+                                    imagePlayer.sprite = Resources.Load<Sprite>("Sprites/" + (j + 1) + "p");
 
                                 break;
                             }
@@ -207,8 +230,8 @@ public class UIManager : MonoBehaviour {
 
     IEnumerator Timer()
     {
-        yield return new WaitForSeconds(1f);
         timer -= 1;
+        yield return new WaitForSeconds(1f);
 
         if (timer >= 10)
             textTimer.text = (timer.ToString()).Substring(0, 1) + " " + (timer.ToString()).Substring(1, 1);
@@ -216,7 +239,7 @@ public class UIManager : MonoBehaviour {
             textTimer.text = timer.ToString();
 
         if (timer <= 0)
-            isFinish = true;
+            StartCoroutine(TimeOver());
         else
             StartCoroutine(Timer());
     }
@@ -294,5 +317,46 @@ public class UIManager : MonoBehaviour {
         }
 
         StartCoroutine(ShakeLogo());
+    }
+
+    IEnumerator Countdown()
+    {
+        if(countdown != 0)
+            imageCountdown.sprite = Resources.Load<Sprite>("Sprites/" + countdown);
+        else
+        {
+            imageCountdown.sprite = Resources.Load<Sprite>("Sprites/start");
+
+            imageCountdown.GetComponent<RectTransform>().sizeDelta = new Vector2(871, 314);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        countdown--;
+
+        if (countdown >= 0)
+            StartCoroutine(Countdown());
+        else
+        {
+            GameObject.Find("ImageCountdown").active = false;
+            StartCoroutine(Timer());
+        }
+    }
+
+    IEnumerator TimeOver()
+    {
+        imageTimerOver.enabled = true;
+
+        for (int i = 0; i < 25; i++)
+        {
+            imageTimerOver.color = new Color(imageTimerOver.color.r, imageTimerOver.color.g, imageTimerOver.color.b, i * 0.04f);
+            imageTimerOver.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(6 * (i*4), 5.3f * (i*4));
+            yield return new WaitForSeconds(0.02f);
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        isFinish = true;
+        imageTimerOver.enabled = false;
     }
 }
