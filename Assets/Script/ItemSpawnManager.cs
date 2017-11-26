@@ -20,8 +20,6 @@ public class ItemSpawnManager : MonoBehaviour
         bottomRightCorner = spawnArea.bounds.max;
 
         upperLeftCorner.y = bottomRightCorner.y;
-
-        StartCoroutine(SpawnItemRandomly());
     }
 
 	void Update ()
@@ -46,5 +44,10 @@ public class ItemSpawnManager : MonoBehaviour
             yield return new WaitUntil(() => currentSpawn < maxSpawn);
             yield return new WaitForSeconds(spawnTime);
         }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

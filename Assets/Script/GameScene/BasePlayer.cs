@@ -36,8 +36,12 @@ public class BasePlayer : MonoBehaviour
         }
     }
 
+    public List<KeyCode> keyCodeList = new List<KeyCode>();
     public GameObject bucket;
     public GameObject bucketThrowed;
+    public Collider attackArea;
+    [HideInInspector]
+    public Animator anim;
     public PlayerColor originalColor;
     public PlayerColor bucketColor;
     public PlayerColor brushColor;
@@ -45,27 +49,32 @@ public class BasePlayer : MonoBehaviour
     public float PlayerMovePowerBase = 3f;
     public float PlayerDashPower = 8f;
     public float PlayerMovePower = 3f;
+    public float x = 0f;
+    public float z = 0f;
+    public bool canMove = true;
 
     public PlayerState _playerState = PlayerState.eIdle;
-    private Animator anim;
+
+    private SoundManager sm;
     private Collider coll;
-    private float x = 0f;
-    private float z = 0f;
     private bool throwButtonUp = false;
     private bool dashButtonDown = false;
     private bool paintButtonUp = false;
 
-    private bool canMove = true;
+    private string horizontal = "";
+    private string vertical = "";
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         GeneratorPlayer();
+        sm = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider>();
         PlayerMovePower = PlayerMovePowerBase;
         bucketColor = originalColor;
         brushColor = originalColor;
+        attackArea.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -81,14 +90,13 @@ public class BasePlayer : MonoBehaviour
 
     public void InputUpdate()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
-  
+        x = Input.GetAxis(horizontal);
+        z = Input.GetAxis(vertical);
 
         //Input 설정은 컨트롤러 오고 난 뒤에
-        throwButtonUp = Input.GetButtonUp("Throw");
-        dashButtonDown = Input.GetButtonDown("Dash");
-        paintButtonUp = Input.GetButtonUp("Paint");
+        throwButtonUp = Input.GetKeyDown(keyCodeList[0]);
+        dashButtonDown = Input.GetKeyDown(keyCodeList[1]);
+        paintButtonUp = Input.GetKeyDown(keyCodeList[2]);
     }
 
     public void StateUpdate()
@@ -97,15 +105,21 @@ public class BasePlayer : MonoBehaviour
         {
             anim.SetTrigger("Throw");
             StartThrow();
+            throwButtonUp = false;
+            attackArea.enabled = false;
         }
         else if (paintButtonUp)
         {
             anim.SetTrigger("Paint");
+            paintButtonUp = false;
+            attackArea.enabled = true;
         }
-       
+
         if (dashButtonDown)
         {
             playerState = PlayerState.eDash;
+            dashButtonDown = false;
+            attackArea.enabled = false;
         }
 
         if (Mathf.Abs(x) <= float.Epsilon && Mathf.Abs(z) <= float.Epsilon)
@@ -121,9 +135,9 @@ public class BasePlayer : MonoBehaviour
     public void PosUpdate()
     {
         //이동할양
-        Vector3 pos = new Vector3(x*PlayerMovePower, transform.position.y, z* PlayerMovePower);
+        Vector3 pos = new Vector3(x*PlayerMovePower, 0f, z* PlayerMovePower);
         //Debug.Log(pos);
-        if (playerState != PlayerState.eIdle)
+        if (playerState != PlayerState.eIdle && !(Mathf.Abs(x) < float.Epsilon && Mathf.Abs(z) < float.Epsilon ))
         {
             transform.LookAt(transform.position + pos.normalized * PlayerMovePower);
             transform.Rotate(new Vector3(0, 180f, 0f));
@@ -137,6 +151,16 @@ public class BasePlayer : MonoBehaviour
         coll.enabled = true;
         canMove = true;
         PlayerMovePower = PlayerMovePowerBase;
+    }
+
+    public void PaintEnd()
+    {
+        attackArea.enabled = false;
+    }
+
+    public void CannotMoveEnd()
+    {
+        canMove = true;
     }
 
     public void StartThrow()
@@ -156,27 +180,49 @@ public class BasePlayer : MonoBehaviour
 
     private void GeneratorPlayer()
     {
-        Vector3 pos = new Vector3();
-
         switch (playerIndex)
         {
-            case PlayerIndex.One:
-                break;
-            case PlayerIndex.Two:
-                break;
-            case PlayerIndex.Three:
-                break;
-            case PlayerIndex.Four:
-                break;
+        case PlayerIndex.One:
+            horizontal = "P1_Horizontal";
+            vertical = "P1_Vertical";
+            keyCodeList.Add(KeyCode.Joystick1Button2);
+            keyCodeList.Add(KeyCode.Joystick1Button0);
+            keyCodeList.Add(KeyCode.Joystick1Button1);
+            break;
+        case PlayerIndex.Two:
+            horizontal = "P2_Horizontal";
+            vertical = "P2_Vertical";
+            keyCodeList.Add(KeyCode.Joystick2Button2);
+            keyCodeList.Add(KeyCode.Joystick2Button0);
+            keyCodeList.Add(KeyCode.Joystick2Button1);
+            break;
+        case PlayerIndex.Three:
+            horizontal = "P3_Horizontal";
+            vertical = "P3_Vertical";
+            keyCodeList.Add(KeyCode.F);
+            keyCodeList.Add(KeyCode.G);
+            keyCodeList.Add(KeyCode.H);
+            break;
+        case PlayerIndex.Four:
+            horizontal = "P4_Horizontal";
+            vertical = "P4_Vertical";
+            keyCodeList.Add(KeyCode.Keypad1);
+            keyCodeList.Add(KeyCode.Keypad2);
+            keyCodeList.Add(KeyCode.Keypad3);
+            break;
         }
         //control = GetComponent<BasePlayerControl>();
     }
 
     public void BrushIndex(int index)
     {
-        if(index != 0)
-            GetComponentInChildren<Brush>().Off(index-1);
+        GetComponentInChildren<Brush>().Off(index-1);
 
         GetComponentInChildren<Brush>().On(index);
+    }
+
+    public void PlaySound(int index)
+    {
+        sm.PlaySound(index);
     }
 }

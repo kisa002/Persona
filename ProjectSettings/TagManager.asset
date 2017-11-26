@@ -9,6 +9,8 @@ TagManager:
   - Button
   - PaintBucketThrowed
   - StageArea
+  - SoundManager
+  - AttackArea
   layers:
   - Default
   - TransparentFX

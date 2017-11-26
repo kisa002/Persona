@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
     
-    static int playerCount = 0;
+    public static int playerCount = 0;
 
     SoundManager soundManager;
-
+    TitleMapGenerator generator;
+    ItemSpawnManager spawner;
     //Main
     public int menu = 0;
 
@@ -52,7 +53,7 @@ public class UIManager : MonoBehaviour {
     void Start ()
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-
+        
         if (SceneManager.GetActiveScene().name == "Main")
         {
             main = GameObject.Find("Main");
@@ -61,16 +62,20 @@ public class UIManager : MonoBehaviour {
 
             logo = GameObject.Find("Logo");
 
-            select.active = false;
-            credit.active = false;
+            select.SetActive(false);
+            credit.SetActive(false);
 
             StartCoroutine(ShakeLogo());
         }
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
+            generator = GameObject.Find("TileMapManager").GetComponent<TitleMapGenerator>();
+            spawner = GameObject.FindGameObjectWithTag("StageArea").GetComponent<ItemSpawnManager>();
             textTimer = GameObject.Find("TextTimer").GetComponent<Text>();
 
             imageCountdown = GameObject.Find("ImageCountdown").GetComponent<Image>();
+
+            generator.SetControlable(false);
             StartCoroutine(Countdown());
 
             imageTimerOver = GameObject.Find("ImageTimerOver").GetComponent<Image>();
@@ -87,7 +92,7 @@ public class UIManager : MonoBehaviour {
                 gauge[i] = new Gauge();
 
                 gauge[i].obj = GameObject.Find("Gauge" + (i + 1));
-                gauge[i].textPercent = gauge[i].obj.transform.FindChild("TextPercent").GetComponent<Text>();
+                gauge[i].textPercent = gauge[i].obj.transform.Find("TextPercent").GetComponent<Text>();
             }
 
             result = GameObject.Find("Result");
@@ -95,12 +100,12 @@ public class UIManager : MonoBehaviour {
 
             for (int i = 0; i < 4; i++)
             {
-                resultPlayer[i] = panelResult.transform.FindChild("Player" + (i + 1)).gameObject;
-                resultPlayer[i].transform.SetParent(GameObject.Find("Result").transform.FindChild("Hide"));
+                resultPlayer[i] = panelResult.transform.Find("Player" + (i + 1)).gameObject;
+                resultPlayer[i].transform.SetParent(GameObject.Find("Result").transform.Find("Hide"));
             }
 
-            panelResult.active = false;
-            result.active = false;
+            panelResult.SetActive(false);
+            result.SetActive(false);
         }
 	}
 	
@@ -126,12 +131,12 @@ public class UIManager : MonoBehaviour {
             }
             else
             {
-                if (!panelResult.active)
+                if (!panelResult.activeSelf)
                 {
                     soundManager.BgmResult();
 
-                    result.active = true;
-                    panelResult.active = true;
+                    result.SetActive(true);
+                    panelResult.SetActive(true);
 
                     for (int i = 0; i < 4; i++)
                     {
@@ -153,7 +158,7 @@ public class UIManager : MonoBehaviour {
                             if (rank[j] == count)
                             {
                                 resultPlayer[j].transform.SetParent(panelResult.transform);
-                                resultPlayer[j].transform.FindChild("Rank").transform.FindChild("Text").GetComponent<Text>().text = (count + 1).ToString();
+                                resultPlayer[j].transform.Find("Rank").transform.Find("Text").GetComponent<Text>().text = (count + 1).ToString();
 
                                 if (count == 0)
                                     imagePlayer.sprite = Resources.Load<Sprite>("Sprites/" + (j + 1) + "p");
@@ -170,9 +175,9 @@ public class UIManager : MonoBehaviour {
 
                     for (int i = 0; i < 4; i++)
                     {
-                        resultPlayer[i].transform.FindChild("Gauge").transform.FindChild("TextPercent").GetComponent<Text>().text = Mathf.Round(gauge[i].percent).ToString() + "%";
+                        resultPlayer[i].transform.Find("Gauge").transform.Find("TextPercent").GetComponent<Text>().text = Mathf.Round(gauge[i].percent).ToString() + "%";
 
-                        gauge[i].obj = resultPlayer[i].transform.FindChild("Gauge").gameObject;
+                        gauge[i].obj = resultPlayer[i].transform.Find("Gauge").gameObject;
                         gauge[i].ResultWidth();
                     }
                 }
@@ -191,10 +196,10 @@ public class UIManager : MonoBehaviour {
         soundManager.BgmTitle();
         soundManager.PlaySound(4);
 
-        select.active = false;
-        credit.active = false;
+        select.SetActive(false);
+        credit.SetActive(false);
 
-        main.active = true;
+        main.SetActive(true);
     }
 
     public void ShowSelect()
@@ -202,21 +207,21 @@ public class UIManager : MonoBehaviour {
         StartCoroutine(ChangeMenu(1));
         soundManager.PlaySound(4);
 
-        main.active = false;
-        credit.active = false;
+        main.SetActive(false);
+        credit.SetActive(false);
 
-        select.active = true;
+        select.SetActive(true);
     }
 
     public void ShowCredit()
     {
-        credit.active = true;
+        credit.SetActive(true);
         soundManager.PlaySound(4);
 
         soundManager.BgmCredit();
 
-        main.active = false;
-        select.active = false;
+        main.SetActive(false);
+        select.SetActive(false);
     }
 
     public void GameQuit()
@@ -231,7 +236,7 @@ public class UIManager : MonoBehaviour {
         if (menu == 1)
         {
             UIManager.playerCount = playerCount;
-
+            Debug.Log("pc : " + playerCount);
             SceneManager.LoadScene("GameScene");
         }
 
@@ -310,7 +315,7 @@ public class UIManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f);
 
-        obj.active = check;
+        obj.SetActive(check);
     }
 
     IEnumerator ChangeMenu(int value)
@@ -353,7 +358,9 @@ public class UIManager : MonoBehaviour {
             StartCoroutine(Countdown());
         else
         {
-            GameObject.Find("ImageCountdown").active = false;
+            generator.SetControlable(true);
+            spawner.StartCoroutine(spawner.SpawnItemRandomly());
+            GameObject.Find("ImageCountdown").SetActive(false);
             StartCoroutine(Timer());
         }
     }
@@ -361,6 +368,7 @@ public class UIManager : MonoBehaviour {
     IEnumerator TimeOver()
     {
         imageTimerOver.enabled = true;
+        generator.SetControlable(false);
 
         for (int i = 0; i < 25; i++)
         {

@@ -118,10 +118,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.08561352
-  m_TransitionOffset: 0.2465795
-  m_ExitTime: 0.7431595
-  m_HasExitTime: 0
+  m_TransitionDuration: 0.012620777
+  m_TransitionOffset: 0.3560685
+  m_ExitTime: 0.96213764
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -427,10 +427,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.85
-  m_HasExitTime: 0
+  m_TransitionDuration: 0.025425792
+  m_TransitionOffset: 0.33686146
+  m_ExitTime: 0.98474455
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -492,8 +492,11 @@ AnimatorState:
   m_Name: Idle
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: [{fileID: 1101142652220535928}, {fileID: 1101284563088715394}, {
-      fileID: 1101006412333313562}, {fileID: 1101956495912119616}]
+  m_Transitions:
+  - {fileID: 1101142652220535928}
+  - {fileID: 1101284563088715394}
+  - {fileID: 1101006412333313562}
+  - {fileID: 1101956495912119616}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -529,7 +532,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 225afb1ac029cee45a1d758f1e30f6a9, type: 3}
+  m_Motion: {fileID: 7400000, guid: 86c3aef57012074439163a883a8f3fe1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -544,7 +547,9 @@ AnimatorState:
   m_Name: Dash
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: [{fileID: 1101557983449581988}, {fileID: 1101718975926541126}]
+  m_Transitions:
+  - {fileID: 1101557983449581988}
+  - {fileID: 1101718975926541126}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -569,7 +574,9 @@ AnimatorState:
   m_Name: Paint
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: [{fileID: 1101692635796299836}, {fileID: 1101586280589841264}]
+  m_Transitions:
+  - {fileID: 1101692635796299836}
+  - {fileID: 1101586280589841264}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -594,8 +601,11 @@ AnimatorState:
   m_Name: Walk
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: [{fileID: 1101391454662257778}, {fileID: 1101967841005081970}, {
-      fileID: 1101266463788700704}, {fileID: 1101303523892531124}]
+  m_Transitions:
+  - {fileID: 1101391454662257778}
+  - {fileID: 1101967841005081970}
+  - {fileID: 1101266463788700704}
+  - {fileID: 1101303523892531124}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -631,7 +641,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 43847a310abb814448f0b7540348ced0, type: 3}
+  m_Motion: {fileID: 7400000, guid: 3750c27afc6070d4bbfb445250ef3bc2, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -646,7 +656,9 @@ AnimatorState:
   m_Name: Throw
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: [{fileID: 1101453146557516678}, {fileID: 1101012636566601692}]
+  m_Transitions:
+  - {fileID: 1101453146557516678}
+  - {fileID: 1101012636566601692}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

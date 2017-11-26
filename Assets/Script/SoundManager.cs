@@ -47,7 +47,7 @@ public class SoundManager : MonoBehaviour {
                 break;
         }
     }
-
+    
     public void BgmTitle()
     {
         source[0].Play();

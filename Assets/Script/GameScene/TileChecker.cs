@@ -43,4 +43,12 @@ public static class TileChecker
         //          "       tileCnt: " + "[ " + tileCount[0] + ", " + tileCount[1] + ", " + tileCount[2] + ", " + tileCount[3] + ", " + tileCount[4] + "]");
         //Debug.Log("       tilePercent: " + "[ " + tilePercent[0] + ", " + tilePercent[1] + ", " + tilePercent[2] + ", " + tilePercent[3] + ", " + tilePercent[4] + "]");
     }
+
+    public static void Reset()
+    {
+        totalCount = 1;
+        tileCount = new int[5];
+        tilePercent = new double[5];
+
+    }
 }
