@@ -271,6 +271,7 @@ public class UIManager : MonoBehaviour {
 
     public void Restart()
     {
+        //GameObject.Find("TileMapManager").GetComponent<TitleMapGenerator>().ReleaseMap();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleMapGenerator : MonoBehaviour {
+    public List<GameObject> map = new List<GameObject>();
     public GameObject[] players = new GameObject[4];
     public Vector2 mapSize;
     public float delta;
-
+    public Material baseMaterial;
     private GameObject tileResource;
     // Use this for initialization
     void Start () {
@@ -56,8 +57,16 @@ public class TitleMapGenerator : MonoBehaviour {
                 obj.transform.localScale = new Vector3(delta, 1.0f, delta);
                 obj.transform.position = basePos + new Vector3(j * delta, 0.0f, i * delta);
                 obj.GetComponent<TitleInfo>().SetTile(TitleInfo.TileType.eTileBase);
-                
+                map.Add(obj);
             }
+        }
+    }
+
+    public void ReleaseMap()
+    {
+        foreach(var v in map)
+        {
+            v.GetComponent<MeshRenderer>().materials[0] = baseMaterial;
         }
     }
 }
